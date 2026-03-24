@@ -1,29 +1,112 @@
 {
   "mcpServers": {
+
+    "_INSTRUCCIONES": "Activa los servidores según el tipo de proyecto. Los 3 primeros siempre activos. El resto: descomenta según necesites.",
+
+    "___SIEMPRE_ACTIVOS___": "Para cualquier tipo de web",
+
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
-      "description": "Docs actualizadas de cualquier librería (Next.js, React, Stripe, Tailwind, etc). Añadir 'use context7' al prompt cuando necesites docs frescos."
+      "description": "Docs actualizadas de Next.js, React, Tailwind, Stripe, Supabase, etc. Añadir 'use context7' al prompt cuando necesites docs frescos. Evita código deprecado."
     },
+
     "playwright": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/mcp-server-playwright"],
-      "description": "Testing E2E y verificación visual. Usa accessibility trees en vez de screenshots."
+      "description": "Testing E2E y verificación visual. Usa accessibility trees. Útil para QA, mobile review y verificar que los flujos funcionan."
     },
-    "supabase": {
-      "type": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=${SUPABASE_PROJECT_REF}",
-      "description": "Acceso directo a DB, auth, storage, edge functions. SOLO para dev, nunca producción."
-    },
+
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
-      "description": "Gestión de repo, PRs, issues, code search."
+      "description": "Gestión de repo, PRs, issues, code search. Requiere GitHub Copilot activo."
     },
-    "stripe": {
+
+    "___BACKEND_AUTH___": "Descomenta si tu web tiene base de datos o autenticación",
+
+    "_supabase": {
+      "_ACTIVAR": "Quita el guion bajo del nombre para activar. Reemplaza TU_PROJECT_REF con el ref de tu proyecto de Supabase.",
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=TU_PROJECT_REF",
+      "description": "Acceso directo a DB, auth, storage, edge functions. SOLO para dev, nunca usar service_role en producción desde aquí."
+    },
+
+    "_postgresql": {
+      "_ACTIVAR": "Alternativa si no usas Supabase. Requiere variable de entorno DATABASE_URL.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "${DATABASE_URL}"],
+      "description": "Queries directas a PostgreSQL. Para proyectos con DB propia sin Supabase."
+    },
+
+    "___PAGOS___": "Descomenta si tu web procesa pagos",
+
+    "_stripe": {
+      "_ACTIVAR": "Quita el guion bajo. Requiere STRIPE_API_KEY en tu entorno.",
       "type": "http",
       "url": "https://mcp.stripe.com",
-      "description": "Crear productos, precios, checkout sessions, gestionar webhooks."
+      "headers": {
+        "Authorization": "Bearer ${STRIPE_API_KEY}"
+      },
+      "description": "Crear/gestionar productos, precios, checkout sessions, subscriptions y webhooks de Stripe."
+    },
+
+    "_paypal": {
+      "_ACTIVAR": "Alternativa o complemento a Stripe para mercados donde PayPal domina.",
+      "type": "http",
+      "url": "https://mcp.paypal.com/mcp",
+      "description": "Pagos con PayPal. Útil en LATAM, España y mercados con alta adopción de PayPal."
+    },
+
+    "___ECOMMERCE___": "Descomenta si es una tienda con Shopify",
+
+    "_shopify-dev": {
+      "_ACTIVAR": "Para cualquier proyecto Shopify. Docs, API schemas, best practices.",
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/shopify-dev-mcp@latest"],
+      "description": "Docs y schemas de Shopify API. Útil para themes y apps personalizadas. No requiere credenciales."
+    },
+
+    "_shopify-admin": {
+      "_ACTIVAR": "Para gestionar productos y pedidos de tu tienda específica. Reemplaza ACCESS_TOKEN y SHOP.",
+      "command": "npx",
+      "args": [
+        "shopify-mcp",
+        "--accessToken", "${SHOPIFY_ACCESS_TOKEN}",
+        "--domain", "TU-TIENDA.myshopify.com"
+      ],
+      "description": "Gestión de productos, colecciones, pedidos, clientes de tu tienda Shopify específica."
+    },
+
+    "___CMS_CONTENIDO___": "Descomenta si gestionas contenido desde Notion",
+
+    "_notion": {
+      "_ACTIVAR": "Para webs con contenido gestionado en Notion (blog, docs, portfolio).",
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${NOTION_API_KEY}"
+      },
+      "description": "Leer y escribir páginas/bases de datos de Notion. Ideal para CMS simple sin Contentful/Sanity."
+    },
+
+    "___MONITORIZACION___": "Descomenta cuando la app esté en producción",
+
+    "_sentry": {
+      "_ACTIVAR": "Cuando tengas Sentry configurado en producción. Reemplaza TU_ORG y TU_PROJECT.",
+      "type": "http",
+      "url": "https://mcp.sentry.dev/mcp",
+      "description": "Ver y analizar errores en producción. Correlacionar errores con código fuente."
+    },
+
+    "___DISENO___": "Descomenta si tienes Figma con el MCP configurado",
+
+    "_figma": {
+      "_ACTIVAR": "Requiere plugin de Figma con MCP. Contactar equipo de diseño para el endpoint.",
+      "type": "http",
+      "url": "http://127.0.0.1:3845/sse",
+      "description": "Acceso a diseños de Figma. Design-to-code directo. Requiere Figma MCP plugin activo."
     }
+
   }
 }
