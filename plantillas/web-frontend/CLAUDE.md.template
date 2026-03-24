@@ -1,0 +1,57 @@
+# [NOMBRE] — Proyecto Web Frontend
+
+## Stack
+- Framework: React / Astro / Next.js (elegir)
+- Estilos: Tailwind CSS
+- Lenguaje: TypeScript estricto
+- Bundler: Vite
+- Testing: Vitest + Testing Library
+- Linting: ESLint + Prettier
+
+## Diseño
+- Mobile-first siempre
+- Dark mode: sí/no
+- Colores primarios: 
+- Tipografía: Inter (texto), JetBrains Mono (código)
+- Inspiración: 
+
+## Convenciones
+- Componentes: PascalCase, un componente por archivo
+- Hooks custom: `use` prefix, en carpeta `hooks/`
+- TypeScript estricto (no `any`, no `as unknown as`)
+- Props tipadas con interfaces (no types para componentes)
+- CSS: solo Tailwind utilities, no CSS custom salvo excepciones
+
+## Comandos
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Tests: `npm run test`
+- Lint: `npm run lint`
+- Preview: `npm run preview`
+
+## Estructura típica
+```
+src/
+├── components/       # Componentes reutilizables
+│   ├── ui/           # Componentes base (Button, Input, Card)
+│   └── layout/       # Layout (Header, Footer, Sidebar)
+├── pages/            # Páginas / routes
+├── hooks/            # Custom hooks
+├── lib/              # Utilidades, helpers
+├── types/            # TypeScript types compartidos
+└── styles/           # Estilos globales (mínimo)
+public/
+└── assets/           # Imágenes, fonts, favicons
+```
+
+## SEO (si aplica)
+- Cada página: title, meta description, og:image
+- Sitemap automático
+- Schema.org markup donde sea relevante
+- Core Web Vitals en verde
+
+## Accesibilidad
+- WCAG 2.1 AA mínimo
+- Alt text en todas las imágenes
+- Keyboard navigation funcional
+- Contraste suficiente en ambos modos (light/dark)

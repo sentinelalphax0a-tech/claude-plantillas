@@ -1,0 +1,50 @@
+# [NOMBRE DEL PROYECTO]
+
+## Descripción
+<!-- Una descripción concisa del proyecto: qué hace, para quién, por qué existe -->
+
+## Stack Tecnológico
+<!-- Lista el stack real, no el aspiracional -->
+- Backend: 
+- Frontend: 
+- Base de datos: 
+- Infraestructura: 
+- Otros: 
+
+## Estructura del Proyecto
+```
+proyecto/
+├── src/
+├── tests/
+└── docs/
+```
+<!-- Adaptar a la estructura real. Claude usa esto para navegar. -->
+
+## Convenciones de Código
+<!-- Solo las específicas del proyecto. Las globales ya están en ~/.claude/CLAUDE.md -->
+- 
+- 
+
+## Comandos Importantes
+<!-- Los que usas día a día -->
+- Tests: ``
+- Lint: ``
+- Build: ``
+- Dev server: ``
+- Deploy: ``
+
+## Reglas de Negocio Críticas
+<!-- Lo que Claude NUNCA debe romper. Sé específico. -->
+- 
+- 
+
+## Notas de Debugging
+<!-- Problemas recurrentes y cómo resolverlos -->
+- 
+- 
+
+## Estado Actual
+<!-- Qué se está desarrollando ahora, qué está pendiente -->
+- En progreso: 
+- Pendiente: 
+- Bloqueado por: 

@@ -1,0 +1,51 @@
+# [NOMBRE] — Proyecto Roblox
+
+## Concepto
+<!-- Qué tipo de juego, target audience, core loop -->
+
+## Stack
+- Engine: Roblox Studio
+- Lenguaje: Luau (Lua 5.1 + extensiones de tipo)
+- Gestión de estado: módulos compartidos vía ReplicatedStorage
+- UI: Roact (opcional) o ScreenGuis directos
+- Datos: DataStoreService + ProfileService (si aplica)
+
+## Convenciones Luau
+- PascalCase para servicios, módulos y clases
+- camelCase para funciones y variables locales
+- UPPER_CASE para constantes
+- Prefijo `_` para variables privadas
+- Documentar funciones públicas con `--[[ ]]`
+- Type annotations en funciones públicas
+
+## Estructura del Proyecto
+```
+src/
+├── ServerScriptService/
+│   ├── Services/          # Servicios del servidor (GameService, DataService)
+│   └── Scripts/           # Scripts de servidor
+├── ReplicatedStorage/
+│   ├── Modules/           # Módulos compartidos client-server
+│   ├── Events/            # RemoteEvents y RemoteFunctions
+│   └── Assets/            # Modelos, animaciones compartidas
+├── StarterPlayerScripts/
+│   └── Controllers/       # Controladores del cliente
+└── StarterGui/
+    └── Screens/           # GUIs del jugador
+```
+
+## Monetización
+- Game Passes: beneficios permanentes (compra única)
+- Developer Products: consumibles (compra múltiple)
+- Robux → DevEx (mínimo 30K Robux acumulados)
+
+## Reglas críticas
+- NUNCA confiar en datos del cliente — toda lógica de economía en servidor
+- RemoteEvents: validar SIEMPRE en el servidor
+- DataStore: guardar con debounce, retry en fallo, backup periódico
+- Anti-exploit: rate limiting en RemoteEvents, sanity checks
+
+## Testing
+- Roblox Studio → Test → Start (para probar client+server)
+- TestService para tests automatizados en Studio
+- Logs: usar `print()` y `warn()` con prefijos [SERVER], [CLIENT]

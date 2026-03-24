@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "description": "Docs actualizadas de cualquier librería (Next.js, React, Stripe, Tailwind, etc). Añadir 'use context7' al prompt cuando necesites docs frescos."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-playwright"],
+      "description": "Testing E2E y verificación visual. Usa accessibility trees en vez de screenshots."
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=${SUPABASE_PROJECT_REF}",
+      "description": "Acceso directo a DB, auth, storage, edge functions. SOLO para dev, nunca producción."
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "description": "Gestión de repo, PRs, issues, code search."
+    },
+    "stripe": {
+      "type": "http",
+      "url": "https://mcp.stripe.com",
+      "description": "Crear productos, precios, checkout sessions, gestionar webhooks."
+    }
+  }
+}

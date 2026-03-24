@@ -1,0 +1,143 @@
+# [NOMBRE DEL PROYECTO] — Aplicación Web Fullstack
+
+## Descripción
+<!-- Qué hace, para quién, qué problema resuelve -->
+
+## Stack Tecnológico
+
+### Frontend
+- Framework: Next.js 15 (App Router) / Astro 5 (elegir)
+- Lenguaje: TypeScript estricto (no `any`, no `as unknown as`)
+- Estilos: Tailwind CSS 4 + animaciones custom con Framer Motion
+- Componentes UI: shadcn/ui como base, personalizar siempre
+- Estado: Zustand para estado global, React Query para server state
+- Formularios: React Hook Form + Zod para validación
+
+### Backend
+- API: Next.js Route Handlers / tRPC / FastAPI (elegir)
+- Base de datos: Supabase (PostgreSQL + Auth + Storage + Realtime)
+- ORM: Prisma / Drizzle ORM (elegir)
+- Autenticación: Supabase Auth (social login + email/password)
+- Pagos: Stripe (Checkout, subscriptions, webhooks)
+- Email: Resend + React Email
+
+### Infraestructura
+- Hosting: Vercel (frontend) + Supabase (backend)
+- CDN: Vercel Edge Network
+- Dominio: (por definir)
+- Analytics: Plausible / Umami (privacidad-first)
+- Monitorización: Sentry para errores
+
+## Filosofía de Diseño
+
+### Principios (CRÍTICOS — leer siempre)
+1. **NO debe parecer hecho por IA.** Nada de layouts genéricos con cards
+   alineadas en grid 3x3, gradientes azul-morado, o textos placeholder.
+   Cada proyecto tiene una personalidad visual única.
+2. **Mobile-first real.** Diseñar para 375px primero. No "responsive
+   después".
+3. **Micro-interacciones.** Cada acción del usuario tiene feedback visual:
+   hover, focus, click, loading, success, error. Usar Framer Motion.
+4. **Tipografía como diseño.** La tipografía define el 60% del carácter
+   visual. Elegir una combinación única, no solo Inter.
+5. **Espaciado generoso.** Más whitespace = más profesional. Nunca
+   apretar contenido.
+6. **Color con intención.** Máximo 3 colores: primario, acento, neutro.
+   El color destaca lo importante, no decora.
+7. **Carga progresiva.** Skeletons, blur placeholders para imágenes,
+   transiciones suaves entre estados. Nunca un spinner genérico.
+
+### Anti-patrones (NO hacer nunca)
+- Hero sections con "Welcome to [App]" + gradiente genérico
+- Cards idénticas en grid perfectamente simétrico
+- Gradientes lineales azul→morado (el cliché de IA por excelencia)
+- Stock photos genéricas (usar ilustraciones custom o fotos reales)
+- Botones "Get Started" sin contexto de qué obtienes
+- Transiciones bruscas (todo debe animar suavemente)
+- Modales para todo (usar sheets, drawers, inline expansion)
+- Textos lorem ipsum en demos — siempre contenido real
+
+### Identidad visual
+<!-- Personalizar por proyecto -->
+- Colores: 
+  - Primario: 
+  - Acento: 
+  - Fondo: 
+  - Texto: 
+- Tipografía:
+  - Headings: (ej: Clash Display, Cabinet Grotesk, Satoshi)
+  - Body: (ej: General Sans, Plus Jakarta Sans)
+  - Mono: JetBrains Mono (código)
+- Border radius: (ej: 12px para cards, 8px para botones)
+- Shadows: (ej: sombras suaves con color, no gris puro)
+- Estilo de iconos: (Lucide / Phosphor / Tabler — elegir uno)
+
+## Estructura del Proyecto
+```
+proyecto/
+├── CLAUDE.md
+├── .mcp.json
+├── .claude/
+│   ├── skills/            # Skills de Claude Code
+│   ├── agents/            # Subagentes
+│   └── settings.json      # Hooks
+├── src/
+│   ├── app/               # Next.js App Router (pages + API routes)
+│   │   ├── (marketing)/   # Páginas públicas (landing, pricing, etc)
+│   │   ├── (app)/         # Páginas autenticadas (dashboard, settings)
+│   │   ├── api/           # Route handlers + webhooks
+│   │   └── layout.tsx     # Root layout
+│   ├── components/
+│   │   ├── ui/            # Componentes base (Button, Input, Card...)
+│   │   ├── layout/        # Header, Footer, Sidebar, Navigation
+│   │   ├── forms/         # Formularios reutilizables
+│   │   └── [feature]/     # Componentes por feature
+│   ├── lib/
+│   │   ├── supabase/      # Cliente Supabase (server + client)
+│   │   ├── stripe/        # Helpers de Stripe
+│   │   ├── utils.ts       # Utilidades (cn(), formatDate, etc)
+│   │   └── validations/   # Schemas Zod compartidos
+│   ├── hooks/             # Custom React hooks
+│   ├── stores/            # Zustand stores
+│   ├── types/             # TypeScript types globales
+│   └── styles/
+│       ├── globals.css    # Tailwind imports + CSS variables + fonts
+│       └── animations.css # Keyframes custom
+├── public/
+│   ├── fonts/             # Fonts locales (no Google Fonts CDN)
+│   ├── images/
+│   └── og/                # Imágenes para Open Graph
+├── prisma/                # Schema Prisma + migrations (si no Drizzle)
+├── supabase/
+│   ├── migrations/        # Migrations SQL
+│   └── seed.sql           # Datos de prueba
+└── tests/
+    ├── e2e/               # Playwright E2E tests
+    └── unit/              # Vitest unit tests
+```
+
+## Comandos
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint && npx tsc --noEmit`
+- Test unit: `npx vitest`
+- Test E2E: `npx playwright test`
+- DB migrate: `npx prisma migrate dev`
+- DB studio: `npx prisma studio`
+- Stripe webhook local: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`
+
+## Reglas de Negocio Críticas
+<!-- Las que Claude NUNCA debe romper — adaptar por proyecto -->
+- Toda ruta bajo `(app)/` requiere autenticación
+- Pagos: NUNCA verificar pagos solo en el cliente. Siempre validar
+  con webhook de Stripe en el servidor
+- Datos de usuario: NUNCA exponer datos de un usuario a otro.
+  Supabase RLS obligatorio en todas las tablas
+- API keys y secretos: SOLO en variables de entorno del servidor.
+  Nunca en el cliente (ni NEXT_PUBLIC_ para secretos)
+- Rate limiting en todos los endpoints públicos
+
+## Estado Actual
+- En progreso: 
+- Pendiente: 
+- Bloqueado por: 

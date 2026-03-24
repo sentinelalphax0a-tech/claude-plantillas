@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "sentinel-db": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "DATABASE_URL": "${SENTINEL_DB_URL}"
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "filesystem-logs": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y", "@modelcontextprotocol/server-filesystem",
+        "${SENTINEL_PROJECT_DIR}/logs",
+        "${SENTINEL_PROJECT_DIR}/data"
+      ]
+    }
+  }
+}

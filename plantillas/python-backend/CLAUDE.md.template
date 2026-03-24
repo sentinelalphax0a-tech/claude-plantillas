@@ -1,0 +1,49 @@
+# [NOMBRE] — Proyecto Python Backend
+
+## Stack
+- Python 3.11+
+- Framework: FastAPI / Django / Flask (elegir)
+- Base de datos: PostgreSQL
+- ORM: SQLAlchemy / Django ORM
+- Testing: pytest + pytest-asyncio
+- Linting: ruff + black
+- Type checking: mypy
+
+## Convenciones
+- PEP 8 estricto (ruff se encarga)
+- Type hints obligatorios en toda función pública
+- Docstrings en español para funciones públicas
+- Async por defecto para I/O
+- Patrón Repository para acceso a datos
+- Schemas Pydantic para validación de entrada/salida
+
+## Comandos
+- Tests: `pytest tests/ -v --tb=short`
+- Lint: `ruff check src/`
+- Formato: `black src/`
+- Type check: `mypy src/`
+- Migraciones: `alembic upgrade head`
+- Dev server: `uvicorn src.main:app --reload`
+
+## Estructura típica
+```
+src/
+├── main.py              # Entry point
+├── config.py            # Settings con pydantic-settings
+├── models/              # Modelos SQLAlchemy
+├── schemas/             # Schemas Pydantic
+├── routes/              # Endpoints FastAPI
+├── services/            # Lógica de negocio
+├── repositories/        # Acceso a datos
+└── utils/               # Utilidades comunes
+tests/
+├── conftest.py          # Fixtures compartidos
+├── test_routes/
+└── test_services/
+```
+
+## Reglas
+- Nunca SQL raw sin parametrizar
+- Nunca print() — usar logging
+- Cada endpoint necesita al menos 1 test
+- Variables de entorno vía .env (nunca hardcodear)
